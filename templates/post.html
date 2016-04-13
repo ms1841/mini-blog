@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Add a Post{% endblock %}
+{% block content %}
+    {% if session.auth_user %}
+      {# authenticated user can add a post #}
+    <h2>Add New post</h2>
+    <form action="/add" method="post" class="pure-form pure-form-stacked">
+    {# include CSRF token as hidden form field - it will be included
+       in POST data. #}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+      <fieldset>
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title">
+    <label for="text">Text:</label>
+        <textarea name=text rows=5 cols=40 placeholder="What's on your mind?"></textarea>
+    <button type="submit" class="pure-button pure-button-primary">Add</button>
+        </fieldset>
+    </form>
+    {% else %}
+      {# all others can log in #}
+    <p><a href="/login">Log in</a></p>
+    {% endif %}
+{% endblock %}

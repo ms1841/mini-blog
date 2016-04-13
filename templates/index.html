@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} My blog {% endblock %}
+{% block content %}
+    <h1>My blog</h1>
+    {% if session.auth_user %}
+    <p>You are logged in as ({{ session.auth_user }}). <a href="/logout">Log Out</a>.</p>
+    {% endif %}
+     <h1>Recent posts.</h1>
+<div class="blog-index">
+    {% for title, blog in entries.items() %}
+        {# Generate a URL for the 'post' function with the specified post ID #}
+        <article>
+        <h1>{{ title }}</h1>
+            {{ blog }}
+        </article>
+    {% endfor %}
+</div>
+
+        {% if session.auth_user %}
+          <h1>Add a post <a href="/post">here.</a></h1>
+        {% endif %}
+
+{% endblock %}
+
